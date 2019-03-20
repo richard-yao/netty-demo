@@ -36,7 +36,7 @@ public class FirstClientHandler extends ChannelInboundHandlerAdapter {
         // 2. 准备数据，指定字符串的字符集为 utf-8
         byte[] bytes = "啦啦啦来了1111".getBytes(Charset.forName("UTF-8"));
         // 3. 填充数据到 ByteBuf
-        if(byteBuf.writableBytes() >= bytes.length) {
+        if (byteBuf.writableBytes() >= bytes.length) {
             byteBuf.writeBytes(bytes);
         } else {
             byteBuf.writeBytes(bytes, 0, byteBuf.writableBytes());

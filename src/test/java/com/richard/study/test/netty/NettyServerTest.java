@@ -33,13 +33,13 @@ public class NettyServerTest {
     @Test
     public void testNettyByteBuf() {
         ByteBuf byteBuf = Unpooled.buffer(5);
-        while(byteBuf.writableBytes() > 0) {
+        while (byteBuf.writableBytes() > 0) {
             int randomNum = RandomUtils.nextInt(0, charArray.length);
             char randomChar = charArray[randomNum];
             System.out.println("Input char: " + randomChar);
             byteBuf.writeByte((int) randomChar);
         }
-        while(byteBuf.readableBytes() > 0) {
+        while (byteBuf.readableBytes() > 0) {
             System.out.println("Read out char: " + (char) byteBuf.readByte());
         }
     }

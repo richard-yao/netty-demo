@@ -50,7 +50,7 @@ public class NettyDemoClient {
                         // 返回的是和这条连接相关的逻辑处理链, 责任链模式
                         ch.pipeline()
                                 // 添加一个逻辑处理器
-                          .addLast(new FirstClientHandler());
+                                .addLast(new FirstClientHandler());
                     }
                 });
         // 设定连接服务器的超时时间, 超过指定时间SocketChannel连接自动关闭
@@ -64,6 +64,7 @@ public class NettyDemoClient {
 
     /**
      * 带有指数退避的客户端重连机制，最大尝试次数5, 重连间隔2s
+     *
      * @param bootstrap
      * @param socketAddress
      * @param remainRetryTimes
@@ -71,19 +72,19 @@ public class NettyDemoClient {
     private static void reconnectWithTimeDelay(Bootstrap bootstrap, SocketAddress socketAddress, int remainRetryTimes) {
         ChannelFuture remoteConnection = bootstrap.connect(socketAddress);
         remoteConnection.addListener((future) -> {
-           if(future.isSuccess()) {
-               System.out.println("Connect to remote server successfully!");
-           } else if(remainRetryTimes == 0) {
-               System.out.println("Reconnet failed after " + MAX_RETRY_TIMES + " times retry!");
-           } else {
-               int order = (MAX_RETRY_TIMES - remainRetryTimes) + 1;
-               int delay = 1 << order;
-               System.out.println(new Date() + ": Connect to remote server failed! Retry times: " + remainRetryTimes);
-               bootstrap.config().group().schedule(
-                       () -> reconnectWithTimeDelay(bootstrap, socketAddress, remainRetryTimes - 1),
-                       delay,
-                       TimeUnit.SECONDS);
-           }
+            if (future.isSuccess()) {
+                System.out.println("Connect to remote server successfully!");
+            } else if (remainRetryTimes == 0) {
+                System.out.println("Reconnet failed after " + MAX_RETRY_TIMES + " times retry!");
+            } else {
+                int order = (MAX_RETRY_TIMES - remainRetryTimes) + 1;
+                int delay = 1 << order;
+                System.out.println(new Date() + ": Connect to remote server failed! Retry times: " + remainRetryTimes);
+                bootstrap.config().group().schedule(
+                        () -> reconnectWithTimeDelay(bootstrap, socketAddress, remainRetryTimes - 1),
+                        delay,
+                        TimeUnit.SECONDS);
+            }
         });
     }
 }

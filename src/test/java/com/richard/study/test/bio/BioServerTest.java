@@ -20,7 +20,7 @@ public class BioServerTest {
     @Test
     public void testCustomThreadPool() {
         ExecutorService executorService = CustomThreadPool.getThreadPool();
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             executorService.submit(() -> {
                 System.out.println("Thread-name: " + Thread.currentThread().getName());
             });

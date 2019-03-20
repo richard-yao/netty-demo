@@ -12,7 +12,8 @@ public class LiveMessage {
     private int length;
     private String content;
 
-    public LiveMessage() {}
+    public LiveMessage() {
+    }
 
     public byte getType() {
         return type;

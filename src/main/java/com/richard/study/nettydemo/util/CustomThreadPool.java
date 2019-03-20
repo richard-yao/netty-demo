@@ -15,7 +15,8 @@ public class CustomThreadPool {
 
     private ExecutorService executorService;
 
-    private CustomThreadPool() {}
+    private CustomThreadPool() {
+    }
 
     public static ExecutorService getThreadPool() {
         CustomThreadPool threadPool = new CustomThreadPool();
@@ -24,6 +25,7 @@ public class CustomThreadPool {
 
     /**
      * 手动创建Scheduled线程池, 初始线程数量为3，最大数量默认为Integer.MAX_VALUE，极端情况下有可能导致OOM
+     *
      * @return
      */
     public ExecutorService createScheduledThreadPool() {
@@ -35,6 +37,7 @@ public class CustomThreadPool {
 
     /**
      * 手动创建初始线程数量3，最大线程数量5，最大等待队列1024，默认线程剔除策略为AbortPolicy的线程池
+     *
      * @return
      */
     public ExecutorService createFixedThreadPool() {

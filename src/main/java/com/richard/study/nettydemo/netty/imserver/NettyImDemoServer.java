@@ -67,6 +67,7 @@ public class NettyImDemoServer {
 
     /**
      * Bind someone port available automatically
+     *
      * @param serverBootstrap
      * @param listenPort
      */
@@ -75,11 +76,11 @@ public class NettyImDemoServer {
         ChannelFuture channelFuture = serverBootstrap.bind(listenPort);
         // 添加一个listener在ChannelFuture回调返回结果时执行
         channelFuture.addListener((future) -> {
-            if(future.isSuccess()) {
+            if (future.isSuccess()) {
                 System.out.println("Bind port [" + listenPort + "] successfully!");
             } else {
                 System.out.println("Bind port [" + listenPort + "] failed! Try next port...");
-                bindPortAutomatically(serverBootstrap,listenPort + 1);
+                bindPortAutomatically(serverBootstrap, listenPort + 1);
             }
         });
     }

@@ -33,7 +33,7 @@ public class LongConnTest {
                 try {
                     byte[] input = new byte[64];
                     int readByte = socket.getInputStream().read(input);
-                    if(readByte > -1) {
+                    if (readByte > -1) {
                         logger.debug("readByte " + readByte);
                     }
                 } catch (IOException e) {

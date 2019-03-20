@@ -39,7 +39,7 @@ public class ByteBufTest {
         // Reset the last byte to !
         originalByte[originalByte.length - 1] = 33;
         // check byteBuf content exist array or not
-        if(byteBuf.hasArray()) {
+        if (byteBuf.hasArray()) {
             byte[] array = byteBuf.array();
             assertNotEquals(originalByte[originalByte.length - 1], array[array.length - 1]);
             // For heap ByteBuf, arrayOffset default return 0

@@ -56,7 +56,8 @@ public class LiveHandler extends SimpleChannelInboundHandler<LiveMessage> { // 1
                 });
                 break;
             }
-            default: break;
+            default:
+                break;
         }
     }
 
@@ -69,10 +70,10 @@ public class LiveHandler extends SimpleChannelInboundHandler<LiveMessage> { // 1
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         logger.debug("exceptionCaught");
-        if(null != cause) {
+        if (null != cause) {
             cause.printStackTrace();
         }
-        if(null != ctx) {
+        if (null != ctx) {
             ctx.close();
         }
     }

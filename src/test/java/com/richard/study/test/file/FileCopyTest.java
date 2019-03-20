@@ -25,7 +25,7 @@ public class FileCopyTest {
         filePath = "E:\\var\\test.zip";
         copyFilePath = "E:\\var\\copy.zip";
         File copyFile = new File(copyFilePath);
-        if(copyFile.exists()) {
+        if (copyFile.exists()) {
             copyFile.delete();
         }
     }
@@ -39,7 +39,7 @@ public class FileCopyTest {
             OutputStream outputStream = new FileOutputStream(new File(copyFilePath));
             byte[] bytes = new byte[1024];
             int length = 0;
-            while((length = fileStream.read(bytes)) > -1) {
+            while ((length = fileStream.read(bytes)) > -1) {
                 outputStream.write(bytes, 0, length);
             }
             fileStream.close();

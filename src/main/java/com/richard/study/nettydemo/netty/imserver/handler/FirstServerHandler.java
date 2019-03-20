@@ -21,6 +21,21 @@ public class FirstServerHandler extends ChannelInboundHandlerAdapter {
         ByteBuf byteBuf = (ByteBuf) msg;
         System.out.println("Server receive data: " + byteBuf.toString(Charset.forName("UTF-8")));
 
+        ByteBuf sliceOne = byteBuf.slice();
+        // The sliceOne's maxWritableBytes is limited to the byteBuf's readerIndex - writerIndex
+        if (!sliceOne.isWritable()) {
+            // Read all msg out
+            byte[] dstArray = new byte[sliceOne.readableBytes()];
+            sliceOne.readBytes(dstArray);
+            System.out.println("Server receive data: " + new String(dstArray));
+        }
+        sliceOne.writeBytes("richard".getBytes(Charset.forName("UTF-8")));
+        System.out.println("Slice one data: " + sliceOne.toString(Charset.forName("UTF-8")));
+
+        ByteBuf duplicateOne = byteBuf.duplicate();
+        duplicateOne.writeBytes("Duplicate string".getBytes(Charset.forName("UTF-8")));
+        System.out.println("Duplicate one data: " + sliceOne.toString(Charset.forName("UTF-8")));
+
         System.out.println("Server write out data on " + new Date());
         ByteBuf outputMsg = getByteBuf(ctx);
         ctx.writeAndFlush(outputMsg);
@@ -32,7 +47,7 @@ public class FirstServerHandler extends ChannelInboundHandlerAdapter {
         // 2. 准备数据，指定字符串的字符集为 utf-8
         byte[] bytes = "返回数据到客户端".getBytes(Charset.forName("UTF-8"));
         // 3. 填充数据到 ByteBuf
-        if(byteBuf.writableBytes() >= bytes.length) {
+        if (byteBuf.writableBytes() >= bytes.length) {
             byteBuf.writeBytes(bytes);
         } else {
             byteBuf.writeBytes(bytes, 0, byteBuf.writableBytes());

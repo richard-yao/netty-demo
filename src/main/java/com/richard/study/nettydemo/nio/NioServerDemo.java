@@ -46,31 +46,31 @@ public class NioServerDemo {
         // Register selector to channel
         socketChannel.register(selector, SelectionKey.OP_ACCEPT);
         ByteBuffer byteBuffer = ByteBuffer.wrap("Hello world, I am richard!".getBytes("UTF-8"));
-        while(true) {
+        while (true) {
             try {
                 selector.select();
-            } catch(IOException e) {
+            } catch (IOException e) {
                 logger.error(e.getMessage(), e);
                 break;
             }
             Set<SelectionKey> keySet = selector.selectedKeys();
             Iterator<SelectionKey> keyIterator = keySet.iterator();
-            while(keyIterator.hasNext()) {
+            while (keyIterator.hasNext()) {
                 SelectionKey selectionKey = keyIterator.next();
                 keyIterator.remove();
                 // isAcceptable状态需要注册OP_WRITE
-                if(selectionKey.isAcceptable()) {
+                if (selectionKey.isAcceptable()) {
                     ServerSocketChannel tempChannel = (ServerSocketChannel) selectionKey.channel();
                     SocketChannel client = tempChannel.accept();
                     client.configureBlocking(false);
                     client.register(selector, SelectionKey.OP_WRITE, byteBuffer.duplicate());
                     System.out.println("Accepted connection from " + client);
                 }
-                if(selectionKey.isWritable()) {
+                if (selectionKey.isWritable()) {
                     SocketChannel client = (SocketChannel) selectionKey.channel();
                     ByteBuffer buffer = (ByteBuffer) selectionKey.attachment();
-                    while(buffer.hasRemaining()) {
-                        if(client.write(buffer) > 0) {
+                    while (buffer.hasRemaining()) {
+                        if (client.write(buffer) > 0) {
                             continue;
                         }
                     }

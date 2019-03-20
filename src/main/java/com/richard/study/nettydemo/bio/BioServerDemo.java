@@ -35,7 +35,7 @@ public class BioServerDemo {
         // establish socket server with bind specify port
         ServerSocket server = new ServerSocket(port);
         String hello = "Hello world!";
-        while(true) {
+        while (true) {
             // BIO的阻塞过程体现在线程阻塞接受连接的建立，在建立后会返回Socket对象，可以新开一个线程来处理连接
             // blocking until someone client establish connection, this method will return one Socket object
             final Socket socket = server.accept();
